@@ -1,0 +1,5 @@
+[workspace]
+
+members = [ "api-backend","app-backend"  , "core-backend", "domain-backend", "inftra-backend", "utils-backend"]
+
+resolver = "2"
