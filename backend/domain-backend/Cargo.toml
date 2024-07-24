@@ -6,3 +6,5 @@ edition = "2021"
 [dependencies]
 serde = { version = "1.0.204", features = ["derive"] }
 sqlx = "0.7.4"
+sea-query = "0.30.7"
+modql = { version = "0.3.10", features = ["with-sea-query"] }

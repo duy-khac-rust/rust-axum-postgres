@@ -9,8 +9,11 @@ sqlx = { version = "0.7.4", features = [ "postgres", "runtime-tokio-rustls" ] }
 tokio = { version = "1.38.1", features = [ "full" ] }
 log = "0.4.22"
 thiserror = "1.0.63"
+uuid = { version = "1.10.0", features = [ "v4", "fast-rng" ] }
+serde_json = "1.0.120"
+sea-query = "0.30.7"
+modql = { version = "0.3.10", features = ["with-sea-query"] }
+sea-query-binder = { version = "0.5.0", features = ["sqlx-postgres"] }
 
 # Members
 domain-backend = { path = "../domain-backend" }
-uuid = { version = "1.10.0", features = [ "v4", "fast-rng" ] }
-serde_json = "1.0.120"

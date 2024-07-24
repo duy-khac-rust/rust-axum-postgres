@@ -2,6 +2,7 @@ pub mod error;
 pub mod middleware;
 pub mod models;
 pub mod user;
+pub mod base;
 
 use error::ResultInftra;
 use sqlx::PgPool;

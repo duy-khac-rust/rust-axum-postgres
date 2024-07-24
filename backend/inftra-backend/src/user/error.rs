@@ -1,23 +1,44 @@
-use axum::{http::StatusCode, response::IntoResponse, Json};
-use serde_json::json;
-use thiserror::Error;
+/*
 
-pub type ResultUser<T> = std::result::Result<T, ErrorUser>;
 
-#[derive(Debug, Error)]
-pub enum ErrorUser {
-    #[error("Sqlx error: {0}")]
-    SqlxError(#[from] sqlx::Error),
+pub type Result<T> = core::result::Result<T, Error>;
 
-    #[error("Not found")]
-    NotFound,
-}
-
-impl IntoResponse for ErrorUser {
-    fn into_response(self) -> axum::response::Response {
-        match self {
-            Self::SqlxError(e) => (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({ "error": e.to_string() }))).into_response(),
-            Self::NotFound => (StatusCode::NOT_FOUND, Json(json!({ "error": "Not found" }))).into_response(),
-        }
+#[derive(Debug, From)]
+pub enum Error {
+    //  -- ...
+    ChatReqHasNoMessages {
+        model_into: ModelInfo
     }
+    LastChatMessageIsNoUser {
+        model_info: ModelInfo,
+        actual_role: ChaRole,    
+    }
+
+    // -- ...
 }
+
+impl core::fmt::Display for Error {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> core::result::Result<(), core::> {
+        write!(fmt, "{self:?}")
+    }   
+}
+
+impl std::error::Error for Error {}
+
+1. constructorsNot needed for all types. When target T is immutable (Arc<inner>)
+    - impl Default          - CharRequest::default()
+    - new(...)              - CharRequest::new(vec![ChatMessage::user("Why sky red?")])
+    - from_...(...)         - ChatRequest::from_system("Answer in one line.")
+    - custom_name(...)      - ChatMessage::user("Why sky red?")
+    - impl From<...>        - impl From<String> for ModelName {...}
+2. Setters (chainable)
+    - with_..(self, ...)    - chat_req.with_system("Answer in one line.")
+    - append_..(self, ...)  - chat_req.append_message(ChatMessage::user("Why sky red?"))
+    - insert_..(self, k , v)- client_builder.insert_adapter_config(adapter_kind, adapter_config)
+3. Build                    Not needed for all types. When target T is immutable (Arc<inner>)
+    - ..Build               - ClientBuilder
+    - build()               - T of Result<T> //if validation
+    - ..setter..patterns..  - client_builder.with_reqwest(reqwest) 
+    - T::builder()          - Client::builder() 
+    
+    */
